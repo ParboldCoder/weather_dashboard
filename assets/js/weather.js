@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const apiKey = '4feea38e2c8b6dffeab5bfe8c54ca459';
+    const apiKey = '[HIDDEN]';
   
     const form = document.getElementById('search-form');
     const searchInput = document.getElementById('search-input');
