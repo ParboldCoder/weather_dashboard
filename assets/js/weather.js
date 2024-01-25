@@ -16,10 +16,19 @@ document.addEventListener('DOMContentLoaded', function () {
             const longitude = cityData.coord.lon;
   
             const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
-          };
+  
             return fetch(apiUrl);
           })
           .then(response => response.json())
           .then(weatherData => {
             console.log('API Response:', weatherData);
           })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
+      } else {
+        console.log('City name not provided.');
+      }
+    });
+  });
+  
