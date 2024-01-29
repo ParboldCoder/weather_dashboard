@@ -6,33 +6,28 @@ const appid = '4feea38e2c8b6dffeab5bfe8c54ca459';
 const current = $('#today');
 const future = $('#forecast');
 const sidebar = $('#history');
-var $searchInput = $("#search-input");
-var $searchButton = $("#search-button");
-var $clearButton = $("#clear-button");
+const $searchInput = $("#search-input");
+const $searchButton = $("#search-button");
+const $clearButton = $("#clear-button");
 let cityName;
 let previousCities;
 
 $searchButton.attr("disabled", true);
 
-$searchInput.on("input", function(e) {
-  var value = e.target.value.trim();
-
-  if (value.length > 0) {
-      $searchButton.prop("disabled", false);
-  } else {
-      $searchButton.prop("disabled", true);
-  }
+$searchInput.on("input", function (e) {
+  const value = e.target.value.trim();
+  $searchButton.prop("disabled", value.length === 0);
 });
 
-$searchButton.on("click", function(e) {
+$searchButton.on("click", function (e) {
   e.preventDefault();
   current.empty();
   future.empty();
-  var cityName = $searchInput.val().trim();
+  cityName = $searchInput.val().trim();
   getCoordinates(cityName);
 });
 
-$clearButton.on("click", function(e) {
+$clearButton.on("click", function (e) {
   e.preventDefault();
   sidebar.empty();
   localStorage.clear();
@@ -45,11 +40,11 @@ function getCoordinates(cityName) {
       .then(data => {
           const latitude = data[0].lat;
           const longitude = data[0].lon;
-          getWeather(latitude, longitude);
+          getWeather(cityName, latitude, longitude);
       });
 }
 
-function getWeather(latitude, longitude) {
+function getWeather(cityName, latitude, longitude) {
   const query = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${appid}`;
   fetch(query)
       .then(response => response.json())
@@ -83,8 +78,8 @@ function localStorageLoad() {
   const storedCities = localStorage.getItem('sidebarCities');
   if (storedCities) {
       const cityArray = JSON.parse(storedCities);
-      for (let i = 0; i < cityArray.length; i++) {
-          const storedCity = $(`<button type="submit">${cityArray[i]}</button>`);
+      for (const city of cityArray) {
+          const storedCity = $(`<button type="submit">${city}</button>`);
           sidebar.append(storedCity);
       }
   }
@@ -99,6 +94,5 @@ sidebar.on('click', 'button', function (e) {
 });
 
 function toCelsius(temp) {
-  const celsius = temp - 273.15;
-  return celsius.toFixed(2);
+  return (temp - 273.15).toFixed(2);
 }

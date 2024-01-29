@@ -1,3 +1,23 @@
+body {
+  background-color: #f5d6f1;
+}
+
+.container-fluid {
+  background-color: #d18ac8;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.row {
+background-color: #f5d6f1;
+
+}
+
 #today {
   border-width: 1px;
   padding: 10px;
