@@ -10,11 +10,10 @@
   border-radius: 15px;
   margin: 10px;
   padding: 10px;
-  background-color: #143df5;
+  background-color: #6882f3;
   color: white;
   box-shadow: 5px 5px 10px rgba(0, 10, 10, 2.5);
 }
-
 
 .input-group {
   display: flex;

@@ -1,9 +1,8 @@
 $(document).ready(function () {
   localStorageLoad();
  
-//I implemented a feature to request access to the users geolocation when the page is loaded.
-//This will remain until the user clears their cache.
-  
+  //I implemented a feature to request access to the users geolocation when the page is loaded.
+  //This will remain until the user clears their cache.
   if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(function(position) {
           const latitude = position.coords.latitude;
@@ -31,7 +30,6 @@ $searchInput.on("input", function (e) {
   const value = e.target.value.trim();
   $searchButton.prop("disabled", value.length === 0);
 });
-
 
 //Here I implemented the search button to clear the text box and disable the button after the search was completed.
 $searchButton.on("click", function (e) {
@@ -79,13 +77,14 @@ function getWeather(cityName, latitude, longitude) {
   fetch(query)
       .then(response => response.json())
       .then(data => {
+        console.log(data);
           const temp = data.list[0].main.temp;
-          const currentForecast = $(`<h2>${cityName} (${dayjs().format('D/M/YYYY')})</h2><p>Temp: ${toCelsius(temp)} &deg;C</p><p>Wind: ${data.list[0].wind.speed} KPH</p><p>Humidity: ${data.list[0].main.humidity} %</p>`);
+          const currentForecast = $(`<h2>${cityName} (${dayjs().format('D/M/YYYY')})</h2><p>Temp: ${toCelsius(temp)} &deg;C</p><p>Wind: ${data.list[0].wind.speed} KPH</p><p>Humidity: ${data.list[0].main.humidity} %</p> <img src = 'https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png'> </img>`);
           current.append(currentForecast);
           let futureForecast = $(`<h3>5-Day Forecast:</h3>`);
           future.append(futureForecast);
           for (let i = 3; i < data.list.length; i += 8) {
-              futureForecast = $(`<div class="col-2"><h4>${data.list[i].dt_txt[8]}${data.list[i].dt_txt[9]}${dayjs().format('/M/YYYY')}</h4><p>Temp: ${toCelsius(data.list[i].main.temp)} &deg;C</p><p>Wind: ${data.list[i].wind.speed} KPH</p><p>Humidity: ${data.list[i].main.humidity} %</p></div>`);
+              futureForecast = $(`<div class="col-2"><h4>${data.list[i].dt_txt[8]}${data.list[i].dt_txt[9]}${dayjs().format('/M/YYYY')}</h4><p>Temp: ${toCelsius(data.list[i].main.temp)} &deg;C</p><p>Wind: ${data.list[i].wind.speed} KPH</p><p>Humidity: ${data.list[i].main.humidity} %</p> <img src = 'https://openweathermap.org/img/wn/${data.list[i].weather[0].icon}@2x.png'> </img> </div>`);
               future.append(futureForecast);
           }
           if (sidebar.find(`button:contains(${cityName})`).length === 0) {
