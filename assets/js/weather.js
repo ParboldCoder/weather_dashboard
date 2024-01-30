@@ -49,7 +49,7 @@ $clearButton.on("click", function (e) {
 });
 
 function getCoordinates(cityName) {
-  const geoQuery = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${appid}`;
+  const geoQuery = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${appid}`;
   fetch(geoQuery)
       .then(response => response.json())
       .then(data => {
